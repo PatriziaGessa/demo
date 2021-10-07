@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+</head>
+<body>
+<form action="#" th:action="{'@/animal'}" th:object="${messageForm}" method="post"> <!-- allow to submit the form to called the "/animal" endpoint
+    of the server with a "POST" request and bind objects from the form to the messageForm object.-->
+    <label for="animalText">Enter an Animal: </label>
+    <!-- The "th:field" attribute in input elements reference the "animalName" and "adjective" vales on "messageForm" object -->
+    <!--  So, that when the request gets to the server, it will be able to reference both of these values  -->
+    <input type="text" id="animalText" name="animalText" th:field="*{animalName}">
+    <label for="adjective">Enter an Adjective:</label>
+    <input type="text" id="adjective" name="adjective" th:field="*{adjective}">
+    <input type="submit">
+</form>
+<!-- To display the list of greetings, I need to use "th:each", this iterates over each element in greetings and sticks it into the value message -->
+<!-- After that, important to use "th:text" attribute to set each output to the value of the message-->
+<!-- Lastly, I need th "th:if" and "th:unless" attributes to show or hide the two-text elements -->
+<!-- Note! That they do not have t obe in any particular order. "th:if" and "th:unless" both operate independently unlike an if-else-if control structure -->
+<h1 th:unless="${#list.size(greetings}  > 5" th:each="msg : ${greetings}" th:text="${msg}">Hello, homepage!</h1>
+<h1 th:if="${#lists.size(greetings} > 5">I think that's enough!</h1>
+</body>
+</html>
